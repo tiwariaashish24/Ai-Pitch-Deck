@@ -20,6 +20,29 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Inngest background tasks
+
+Installing the `inngest` package does not generate the integration files. This project has a sample function in `lib/inngest-functions.ts` and registers it at `/api/inngest`.
+
+Run the Next.js app and the Inngest development server in separate terminals. In PowerShell:
+
+```bash
+$env:INNGEST_DEV = "1"
+pnpm dev
+```
+
+```bash
+pnpm dlx inngest-cli@latest dev
+```
+
+On macOS or Linux, start Next.js with `INNGEST_DEV=1 pnpm dev`. With both servers running, queue the example task:
+
+```bash
+curl -X POST http://localhost:3000/api/background
+```
+
+The request returns `202 Accepted`; the task runs asynchronously and its log appears in the Next.js terminal. Replace the sample function body and event data with the work your application needs to perform. Protect the example trigger endpoint with your application's authentication before using it in production.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
