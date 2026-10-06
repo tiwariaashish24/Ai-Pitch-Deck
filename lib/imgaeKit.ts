@@ -1,7 +1,7 @@
 import ImageKit, { toFile } from "@imagekit/nodejs";
 
-let imagekitClient: ImageKit | null = null;
 
+let imagekitClient: ImageKit | null = null;
 function getImageKit(): ImageKit {
   const privateKey = process.env.IMAGEKIT_PRIVATE_KEY;
 
@@ -11,4 +11,25 @@ function getImageKit(): ImageKit {
 
   imagekitClient ??= new ImageKit({ privateKey });
   return imagekitClient;
+}
+
+export async function uploadSlideImage(
+  buffer: Buffer,
+  fileName: string,
+):Promise<string>{
+  const client = getImageKit();
+
+
+  const response = await client.files.upload({
+    file: await toFile(buffer, fileName),
+    fileName,
+    folder:"/pitch-deck-build"
+  })
+  
+  if(!response.url){
+    throw new Error("Failed to upload silde images")
+  }
+
+  return response.url ?? "";
+
 }
