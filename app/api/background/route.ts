@@ -6,8 +6,5 @@ export async function POST() {
     data: { message: "Hello from the AI Pitch app" },
   });
 
-  return Response.json(
-    { message: "Background task queued" },
-    { status: 202 },
-  );
+  return Response.json({ message: "Background task queued" }, { status: 202 });
 }
