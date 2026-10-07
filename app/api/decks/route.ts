@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { prisma } from "@/lib/db";
 import { DeckStatus } from "@/lib/generated/prisma/client";
-import { inngest } from "@/lib/inngest/client";
+import { inngest } from "@/lib/inngest";
 
 const createDeckSchema = z.object({
   idea: z
